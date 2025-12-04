@@ -1,0 +1,15 @@
+
+
+integrate resend - [✅]
+integrate dashboard  - [✅]
+implement sidebar - [✅]
+intergrate polar - []
+feedback - []
+landing page - []
+contact support - []
+admin page - []
+integrate blog - []
+integrate pricing page - []
+include seo also - []
+vercel analytics - []
+toasters - []
