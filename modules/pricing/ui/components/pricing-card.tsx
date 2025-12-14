@@ -8,13 +8,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Product } from "@polar-sh/sdk/models/components/product.js";
+import { useRouter } from "next/navigation";
 
 interface PricingCardProps {
   plan: Product;
   checkout: () => void;
   checkoutLabel: string;
+  isLoggedIn: boolean;
 }
-const PricingCard = ({ plan, checkout, checkoutLabel }: PricingCardProps) => {
+const PricingCard = ({
+  plan,
+  checkout,
+  checkoutLabel,
+  isLoggedIn,
+}: PricingCardProps) => {
+
+  const router = useRouter()
   return (
     <Card>
       <CardHeader>
@@ -50,8 +59,8 @@ const PricingCard = ({ plan, checkout, checkoutLabel }: PricingCardProps) => {
         </ul>
       </CardContent>
       <CardFooter>
-        <Button size="lg" className="w-full" onClick={() => checkout()}>
-          {checkoutLabel}
+        <Button size="lg" className="w-full" onClick={isLoggedIn ? () => checkout() : () => { router.push('/sign-in')}}>
+          {isLoggedIn ? checkoutLabel : "Login to get started"}
         </Button>
       </CardFooter>
     </Card>

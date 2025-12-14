@@ -84,3 +84,10 @@ model RateLimit {
 
   @@map("rateLimit")
 }
+
+model Feedback {
+  id      String  @id @default(uuid())
+  email   String?
+  message String  @db.Text
+  rating  String?
+}

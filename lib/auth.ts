@@ -5,18 +5,10 @@ import { magicLink } from "better-auth/plugins";
 import { nextCookies } from "better-auth/next-js";
 import { Resend } from "resend";
 import MagicLinkEmail from "@/emails/magic-link";
-import {
-  polar,
-  checkout,
-  portal,
-  usage,
-  webhooks,
-} from "@polar-sh/better-auth";
-import { Polar } from "@polar-sh/sdk";
+import { polar, checkout, portal, usage } from "@polar-sh/better-auth";
 import { polarClient } from "./polar-client";
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
-
 
 export const auth = betterAuth({
   appName: "starter-kit",
@@ -74,6 +66,10 @@ export const auth = betterAuth({
             {
               productId: "981f9322-220b-4d3c-ab79-9cbb639f3dff",
               slug: "creator",
+            },
+            {
+              productId: "4cdba19a-f7ba-4bd8-b0d0-1ecc3b82ac69",
+              slug: "power",
             },
           ],
           successUrl: "/success?checkout_id={CHECKOUT_ID}",

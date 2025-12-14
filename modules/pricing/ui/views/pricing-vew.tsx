@@ -6,8 +6,10 @@ import { Spinner } from "@/components/ui/spinner";
 import { usePricingPlan } from "../../hooks/use-pricing";
 import { getAllPlans } from "@/server/plans";
 import { getUserActiveSubscription } from "@/server/user";
+import { authClient } from "@/lib/auth-client";
 
 export default function PricingView() {
+  const session = authClient.useSession();
   const { data: allPlans, isLoading: isGetPlansLoading } = useQuery({
     queryKey: ["get-all-plans"],
     queryFn: () => getAllPlans(),
@@ -18,23 +20,18 @@ export default function PricingView() {
       queryFn: () => getUserActiveSubscription(),
     });
 
-  if (isGetPlansLoading || isGetSubscriptionLoading) {
-    return <Spinner />;
+  if (isGetPlansLoading || isGetSubscriptionLoading || session.isPending) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
-    <section className="py-16">
+    <section className="">
       <div className="mx-auto w-full max-w-2xl px-6 lg:max-w-7xl">
-        <div className="mx-auto max-w-xl text-center">
-          <h2 className="text-3xl/tight font-semibold tracking-tight sm:text-4xl/tight">
-            Choose your plan
-          </h2>
-          <p className="text-muted-foreground mt-4 text-base/7 sm:text-lg/8">
-            Aliquet adipiscing lectus praesent cras sed quis lectus egestas.
-          </p>
-        </div>
-
-        <div className="mx-auto mt-12 grid gap-8 lg:max-w-4xl lg:grid-cols-2">
+        <div className="mx-auto mt-12 grid gap-8 lg:max-w-5xl lg:grid-cols-3">
           {allPlans &&
             allPlans.map((plan) => {
               const { checkout, checkoutLabel } = usePricingPlan(
@@ -47,6 +44,7 @@ export default function PricingView() {
                   checkout={checkout}
                   checkoutLabel={checkoutLabel}
                   plan={plan}
+                  isLoggedIn={!!session.data?.user.id}
                 />
               );
             })}

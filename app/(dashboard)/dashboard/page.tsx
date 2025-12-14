@@ -1,3 +1,5 @@
+"use client";
+
 import { ChartAreaInteractive } from "@/components/dashboard-sidebar/chat-area-interactive";
 import { DataTable } from "@/components/dashboard-sidebar/data-table";
 import { SectionCards } from "@/components/dashboard-sidebar/section-cards";

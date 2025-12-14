@@ -1,4 +1,3 @@
-
 import PricingView from "@/modules/pricing/ui/views/pricing-vew";
 import { getAllPlans } from "@/server/plans";
 import { getUserActiveSubscription } from "@/server/user";
@@ -21,9 +20,19 @@ const PricingPage = () => {
   });
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <PricingView/>;
-    </HydrationBoundary>
+    <div className="h-full py-14">
+      <div className="mx-auto max-w-xl text-center">
+        <h2 className="text-3xl/tight font-semibold tracking-tight sm:text-4xl/tight">
+          Choose your plan
+        </h2>
+        <p className="text-muted-foreground mt-4 text-base/7 sm:text-lg/8">
+          Aliquet adipiscing lectus praesent cras sed quis lectus egestas.
+        </p>
+      </div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <PricingView />;
+      </HydrationBoundary>
+    </div>
   );
 };
 

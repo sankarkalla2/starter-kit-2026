@@ -9,7 +9,7 @@ export const usePricingPlan = (
 ) => {
   let checkoutLabel = userSubscription ? "Upgrade" : "Get started";
   let checkout: () => void = () => {};
-  checkout = () => authClient.checkout({ products: [plan.id] });
+  checkout = () => authClient.checkoutEmbed({ products: [plan.id] });
   const isPlanActive = userSubscription
     ? userSubscription.productId === plan.id
     : false;

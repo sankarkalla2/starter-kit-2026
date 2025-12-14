@@ -16,6 +16,7 @@ import {
   IconReport,
   IconSearch,
   IconSettings,
+  IconUserCircle,
   IconUsers,
 } from "@tabler/icons-react";
 
@@ -23,15 +24,27 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSkeleton,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { NavMain } from "./nav-main";
 import { NavDocuments } from "./nav-documents";
 import { NavSecondary } from "./nav-secondary";
 import { NavUser } from "./nav-user";
+import { authClient } from "@/lib/auth-client";
+import { Skeleton } from "../ui/skeleton";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { getUserActiveSubscription } from "@/server/user";
+import UserFeedback from "../user-feedback";
+import UpgradeCard from "../upgrade-card";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { PanelLeft } from "lucide-react";
 
 const data = {
   user: {
@@ -151,6 +164,16 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const session = authClient.useSession();
+
+  const { data: userSubscription, isLoading: isGetSubscriptionLoading } =
+    useQuery({
+      queryKey: ["get-user-subscription"],
+      queryFn: () => getUserActiveSubscription(),
+    });
+
+  const { toggleSidebar, isMobile, open } = useSidebar();
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -171,10 +194,54 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
         <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <SidebarGroup className="group-data-[collapsible=icon]:hidden p-0">
+          {session.data?.user &&
+            !userSubscription &&
+            !isGetSubscriptionLoading && (
+              <SidebarMenu className="">
+                <SidebarMenuItem className="">
+                  <UpgradeCard />
+                </SidebarMenuItem>
+              </SidebarMenu>
+            )}
+        </SidebarGroup>
+        {!isMobile && !open && (
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={toggleSidebar}
+                tooltip={"open-sidebar"}
+              >
+                <PanelLeft />
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        )}
+        <UserFeedback />
+        {session.isPending ? (
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton isActive>
+                <Skeleton className="h-10 w-full rounded-md bg-background" />
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        ) : session.data?.user ? (
+          <NavUser user={session.data.user} />
+        ) : (
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton tooltip={"sign-in"} asChild >
+                <Link href={"/sign-in"} prefetch>
+                  <IconUserCircle />
+                  <span>Sign in</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        )}
       </SidebarFooter>
     </Sidebar>
   );
