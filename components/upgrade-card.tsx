@@ -27,7 +27,7 @@ const UpgradeCard = () => {
             Advanced analytics
           </li>
         </ul>
-        <Button variant={"primary"} className="cursor-pointer" asChild>
+        <Button variant={"default"} className="cursor-pointer" asChild>
           <Link href={"/pricing"} prefetch>
             <Sparkles />
             Upgrade

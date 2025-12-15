@@ -20,7 +20,7 @@ import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import z from "zod";
 import { toast } from "sonner";
-import { Alert, AlertIcon, AlertTitle } from "./ui/alert";
+import { Alert, AlertTitle } from "./ui/alert";
 import { Input } from "./ui/input";
 
 import { ModalProvider } from "./modal-provider";
@@ -43,24 +43,14 @@ const UserFeedback = ({ email }: UserFeedbackProps) => {
       const res = await storeUserFeedBack(values);
       if (res.status) {
         toast.custom((t) => (
-          <Alert variant="mono" icon="primary" onClose={() => toast.dismiss(t)}>
-            <AlertIcon>
-              <MessageSquare />
-            </AlertIcon>
+          <Alert variant="success">
             <AlertTitle>Your feedback successfully submitted</AlertTitle>
           </Alert>
         ));
         form.reset();
       } else {
         toast.custom((t) => (
-          <Alert
-            variant="destructive"
-            icon="primary"
-            onClose={() => toast.dismiss(t)}
-          >
-            <AlertIcon>
-              <MessageSquare />
-            </AlertIcon>
+          <Alert variant="destructive">
             <AlertTitle>{res.message}</AlertTitle>
           </Alert>
         ));
@@ -70,7 +60,7 @@ const UserFeedback = ({ email }: UserFeedbackProps) => {
   return (
     <ModalProvider
       trigger={
-        <SidebarMenuButton tooltip={'Feedback'}>
+        <SidebarMenuButton tooltip={"Feedback"}>
           <MessageSquare /> Feedback
         </SidebarMenuButton>
       }

@@ -10,7 +10,7 @@ export default function AdminLayoutPage({
   return (
     <SidebarProvider>
       <AdminSidebar />
-      <div className="w-full">{children}</div>
+      <main className="w-full">{children}</main>
     </SidebarProvider>
   );
 }

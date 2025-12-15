@@ -31,7 +31,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
-import { Alert, AlertIcon, AlertTitle } from "../ui/alert";
+import { Alert, AlertTitle } from "../ui/alert";
 import { toast } from "sonner";
 import { CheckIcon } from "lucide-react";
 
@@ -142,13 +142,12 @@ export function NavUser({
                       toast.custom(
                         (t) => (
                           <Alert
-                            variant="mono"
-                            icon="success"
-                            onClose={() => toast.dismiss(t)}
+                            
+                            variant={'default'}
                           >
-                            <AlertIcon>
+                            {/* <AlertIcon>
                               <CheckIcon />
-                            </AlertIcon>
+                            </AlertIcon> */}
                             <AlertTitle>This is a success toast</AlertTitle>
                           </Alert>
                         ),

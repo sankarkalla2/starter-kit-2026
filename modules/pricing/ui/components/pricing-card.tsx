@@ -22,8 +22,7 @@ const PricingCard = ({
   checkoutLabel,
   isLoggedIn,
 }: PricingCardProps) => {
-
-  const router = useRouter()
+  const router = useRouter();
   return (
     <Card>
       <CardHeader>
@@ -59,7 +58,17 @@ const PricingCard = ({
         </ul>
       </CardContent>
       <CardFooter>
-        <Button size="lg" className="w-full" onClick={isLoggedIn ? () => checkout() : () => { router.push('/sign-in')}}>
+        <Button
+          size="lg"
+          className="w-full"
+          onClick={
+            isLoggedIn
+              ? () => checkout()
+              : () => {
+                  router.push("/sign-in");
+                }
+          }
+        >
           {isLoggedIn ? checkoutLabel : "Login to get started"}
         </Button>
       </CardFooter>

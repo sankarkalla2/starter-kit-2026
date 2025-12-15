@@ -2,7 +2,7 @@ import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { Alert, AlertIcon, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertTitle, AlertIcon } from "@/components/ui/alert";
 import { AlertCircle, CheckCheck, CheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
