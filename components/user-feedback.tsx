@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import { MessageSquare } from "lucide-react";
 import { SidebarMenuButton } from "./ui/sidebar";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -26,6 +26,7 @@ import { Input } from "./ui/input";
 import { ModalProvider } from "./modal-provider";
 import { storeUserFeedBack } from "@/server/feedback";
 import { UserFeedbackSchema } from "@/schemas/user-feeback-schema";
+import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 
 interface UserFeedbackProps {
   email?: string;
@@ -68,51 +69,53 @@ const UserFeedback = ({ email }: UserFeedbackProps) => {
       description="We would love to hear your feedback!"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="space-y-2">
-            <div>
-              <FormField
+        <form onSubmit={form.handleSubmit(onSubmit)} id="form-feedback">
+          <div className="">
+            <FieldGroup>
+              <Controller
                 control={form.control}
                 name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email?</FormLabel>
-
-                    <FormControl>
-                      <Input
-                        placeholder="email..."
-                        {...field}
-                        type="email"
-                        autoComplete="on"
-                        readOnly={email ? true : false}
-                      />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel>Email?</FieldLabel>
+                    <Input
+                      placeholder="email..."
+                      {...field}
+                      id="form-email-input"
+                      type="email"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                      readOnly={email ? true : false}
+                    />
+                    {fieldState.error && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
                 )}
               />
-            </div>
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
+              <Controller
+                control={form.control}
+                name="message"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="form-feedback-message">
+                      Message
+                    </FieldLabel>
                     <Textarea
-                      placeholder="Tell us how we can improve our product"
+                      placeholder="Tell us how can we imporove our product"
                       {...field}
+                      id="form-feedback-message"
+                      aria-invalid={fieldState.invalid}
                     />
-                  </FormControl>
-                  <FormDescription>
-                    Please don’t include any sensitive information
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    {fieldState.error && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
           </div>
-          <DialogFooter>
+          <DialogFooter className="pt-4">
             <DialogClose asChild>
               <Button type="button" variant="outline">
                 Close

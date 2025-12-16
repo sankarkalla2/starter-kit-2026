@@ -36,10 +36,10 @@ export default function NavUserUpdate({
     <ModalProvider
       trigger={
         <button
-          className="flex w-full items-center rounded-md gap-2 cursor-pointer hover:bg-sidebar-accent px-2 py-2 text-sm"
+          className="flex w-full items-center rounded-md gap-2 cursor-pointer hover:bg-sidebar-accent px-2 py-1.5 text-xs"
           onClick={() => setOpen(true)}
         >
-          <IconUser className="size-4 text-muted-foreground" /> Profile
+          <IconUser className="size-4" /> Profile
         </button>
       }
       title={"Profile"}

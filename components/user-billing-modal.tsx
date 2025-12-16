@@ -26,8 +26,8 @@ export default function UserBillingModal() {
   return (
     <ModalProvider
       trigger={
-        <div className="flex items-center gap-2 rounded-md cursor-pointer hover:bg-sidebar-accent px-2 py-2 text-sm">
-          <IconCreditCard className="size-4 text-muted-foreground" />
+        <div className="flex items-center gap-2 rounded-md cursor-pointer hover:bg-sidebar-accent px-2 py-1.5 text-xs">
+          <IconCreditCard className="size-4" />
           Billing
         </div>
       }
@@ -60,14 +60,14 @@ export default function UserBillingModal() {
                   </Badge>
                   {userSubscription ? (
                     <Button
-                      size={"sm"}
+                      size={"xs"}
                       onClick={() => authClient.customer.portal()}
                     >
                       <IconSettings />
                       Manage Billing
                     </Button>
                   ) : (
-                    <Button asChild size={"sm"} variant={"primary"}>
+                    <Button asChild size={"sm"} variant={"default"}>
                       <Link href={"/pricing"} prefetch>
                         <IconBolt />
                         Pricing

@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import AllUsers from "@/modules/admin/components/all-users";
 import { Main } from "@/modules/admin/dashboard/ui/components/main";
 import { Overview } from "@/modules/admin/dashboard/ui/components/overview";
 import { RecentSales } from "@/modules/admin/dashboard/ui/components/recent-sales";
-
 
 export default function AdminPage() {
   return (

@@ -4,7 +4,7 @@ import * as React from "react"
 import { Select as SelectPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { IconSelector, IconCheck, IconChevronUp, IconChevronDown } from "@tabler/icons-react"
+import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from "lucide-react"
 
 function Select({
   ...props
@@ -51,7 +51,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <IconSelector className="text-muted-foreground size-3.5 pointer-events-none" />
+        <ChevronDownIcon className="text-muted-foreground size-3.5 pointer-events-none" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   )
@@ -118,7 +118,7 @@ function SelectItem({
     >
       <span className="pointer-events-none absolute right-2 flex items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <IconCheck className="pointer-events-none" />
+          <CheckIcon className="pointer-events-none" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -149,7 +149,7 @@ function SelectScrollUpButton({
       className={cn("bg-popover z-10 flex cursor-default items-center justify-center py-1 [&_svg:not([class*='size-'])]:size-3.5", className)}
       {...props}
     >
-      <IconChevronUp
+      <ChevronUpIcon
       />
     </SelectPrimitive.ScrollUpButton>
   )
@@ -165,7 +165,7 @@ function SelectScrollDownButton({
       className={cn("bg-popover z-10 flex cursor-default items-center justify-center py-1 [&_svg:not([class*='size-'])]:size-3.5", className)}
       {...props}
     >
-      <IconChevronDown
+      <ChevronDownIcon
       />
     </SelectPrimitive.ScrollDownButton>
   )

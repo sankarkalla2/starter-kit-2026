@@ -61,7 +61,7 @@ export const sidebarData: SidebarData = {
 
         {
           title: "Users",
-          url: "/users",
+          url: "/admin/users",
           icon: Users,
         },
       ],

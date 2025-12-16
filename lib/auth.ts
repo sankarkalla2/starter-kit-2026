@@ -7,6 +7,8 @@ import { Resend } from "resend";
 import MagicLinkEmail from "@/emails/magic-link";
 import { polar, checkout, portal, usage } from "@polar-sh/better-auth";
 import { polarClient } from "./polar-client";
+import { admin as adminPlugin } from "better-auth/plugins";
+import { admin, user, ac } from "@/components/permissions";
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
 
@@ -79,7 +81,31 @@ export const auth = betterAuth({
         usage(),
       ],
     }),
+    adminPlugin({
+      ac,
+      admin,
+      user,
+    }),
   ],
+
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "user",
+        input: false,
+      },
+    },
+
+    deleteUser: {
+      enabled: true,
+      async sendDeleteAccountVerification(data, request) {
+        console.log("Account delete link", data.url);
+      },
+    },
+  },
+
   rateLimit: {
     enabled: true,
     storage: "database",
